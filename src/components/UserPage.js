@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 
 export default function UserPage() {
   const navigate = useNavigate();
+  const [templates, setTemplates] = useState([]);
+
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      const token = sessionStorage.getItem("token");
+
+      try {
+        const templatesResponse = await fetch(
+          "http://localhost:5000/api/user-templates",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const templatesData = await templatesResponse.json();
+        setTemplates(templatesData);
+      } catch (error) {
+        console.error("Error fetching templates", error);
+      }
+    };
+    fetchTemplates();
+  }, []);
 
   return (
     <div className="container mt-5">
@@ -28,7 +52,11 @@ export default function UserPage() {
             </li>
           </ul>
         </div>
-        <button type="button" className="btn btn-primary" onClick={() => navigate("/create-template")}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => navigate("/create-template")}
+        >
           Create a new template
         </button>
       </div>
@@ -40,48 +68,25 @@ export default function UserPage() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>
-              Template 1
-              <div className="float-end">
-                <button type="button" className="btn btn-outline-primary me-2">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-outline-danger">
-                  Delete
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>
-              Template 2
-              <div className="float-end">
-                <button type="button" className="btn btn-outline-primary me-2">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-outline-danger">
-                  Delete
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>
-              Template 3
-              <div className="float-end">
-                <button type="button" className="btn btn-outline-primary me-2">
-                  Edit
-                </button>
-                <button type="button" className="btn btn-outline-danger">
-                  Delete
-                </button>
-              </div>
-            </td>
-          </tr>
+          {templates.map((template, index) => (
+            <tr key={template._id}>
+              <th scope="row">{index + 1}</th>
+              <td>
+                {template.title}
+                <div className="float-end">
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary me-2"
+                  >
+                    Edit
+                  </button>
+                  <button type="button" className="btn btn-outline-danger">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <h2 className="text-left">Completed forms</h2>
