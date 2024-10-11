@@ -4,6 +4,7 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,9 +27,13 @@ export default function Register() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Registration successful!", data);
+        setMessage("Registration successful!");
+        setName("");
+        setEmail("");
+        setPassword("");
       } else {
-        console.error("Registration failed:", data.message);
+        setMessage("Registration failed");
+        console.log(data.message);
       }
     } catch (error) {
       console.error(error);
@@ -38,6 +43,7 @@ export default function Register() {
   return (
     <div className="container mt-5">
       <h2>Sign up</h2>
+      {message && <div className="alert alert-info">{message}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputName1" className="form-label">
