@@ -71,12 +71,16 @@ export default function UserPage() {
           {templates.map((template, index) => (
             <tr key={template._id}>
               <th scope="row">{index + 1}</th>
-              <td>
+              <td
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/template/${template._id}`)}
+              >
                 {template.title}
                 <div className="float-end">
                   <button
                     type="button"
                     className="btn btn-outline-primary me-2"
+                    onClick={() => navigate(`/template-edit/${template._id}`)}
                   >
                     Edit
                   </button>

@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserPage from "./components/UserPage";
 import CreateTemplate from "./components/CreateTemplate";
+import TemplatePage from "./components/TemplatePage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/user/:userId" element={<UserPage />} />
         <Route path="/create-template" element={<CreateTemplate />} />
+        <Route path="/template/:id" element={<TemplatePage />} />
       </Routes>
     </Router>
   );
