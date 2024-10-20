@@ -11,7 +11,7 @@ export default function UserPage() {
 
       try {
         const templatesResponse = await fetch(
-          "http://localhost:5000/api/user-templates",
+          `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/user-templates`,
           {
             method: "GET",
             headers: {
@@ -21,6 +21,7 @@ export default function UserPage() {
         );
 
         const templatesData = await templatesResponse.json();
+        console.log("Fetched templates data:", templatesData); //
         setTemplates(templatesData);
       } catch (error) {
         console.error("Error fetching templates", error);
@@ -31,6 +32,13 @@ export default function UserPage() {
 
   return (
     <div className="container mt-5">
+      <button
+        type="button"
+        className="btn btn-link float-end"
+        onClick={() => navigate("/")}
+      >
+        log out
+      </button>
       <h2 className="text-left">Templates</h2>
       <div className="d-flex justify-content-between mb-3">
         <div className="dropdown">
@@ -68,29 +76,30 @@ export default function UserPage() {
           </tr>
         </thead>
         <tbody>
-          {templates.map((template, index) => (
-            <tr key={template._id}>
-              <th scope="row">{index + 1}</th>
-              <td
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate(`/template/${template._id}`)}
-              >
-                {template.title}
-                <div className="float-end">
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary me-2"
-                    onClick={() => navigate(`/template-edit/${template._id}`)}
-                  >
-                    Edit
-                  </button>
-                  <button type="button" className="btn btn-outline-danger">
-                    Delete
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
+          {Array.isArray(templates) &&
+            templates.map((template, index) => (
+              <tr key={template._id}>
+                <th scope="row">{index + 1}</th>
+                <td
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/template/${template._id}`)}
+                >
+                  {template.title}
+                  <div className="float-end">
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary me-2"
+                      onClick={() => navigate(`/template-edit/${template._id}`)}
+                    >
+                      Edit
+                    </button>
+                    <button type="button" className="btn btn-outline-danger">
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
       <h2 className="text-left">Completed forms</h2>

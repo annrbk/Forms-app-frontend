@@ -7,20 +7,25 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserPage from "./components/UserPage";
 import CreateTemplate from "./components/CreateTemplate";
 import TemplatePage from "./components/TemplatePage";
+import { UserProvider } from "./context/UserContext";
+import AdminPage from "./components/AdminPage";
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<MainContent />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/user/:userId" element={<UserPage />} />
-        <Route path="/create-template" element={<CreateTemplate />} />
-        <Route path="/template/:id" element={<TemplatePage />} />
-      </Routes>
-    </Router>
+    <UserProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<MainContent />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/user/:userId" element={<UserPage />} />
+          <Route path="/create-template" element={<CreateTemplate />} />
+          <Route path="/template/:id" element={<TemplatePage />} />
+          <Route path="/users" element={<AdminPage />} />
+        </Routes>
+      </Router>
+    </UserProvider>
   );
 }
 

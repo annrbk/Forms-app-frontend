@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
+  const [message, setMessage] = useState("");
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,10 +31,17 @@ export default function Login() {
 
       if (response.ok) {
         sessionStorage.setItem("token", data.token);
+        setUser({ email, role: data.role });
         setEmail("");
         setPassword("");
-        navigate(`/user/${data.userId}`)
+
+        if (data.role === "admin") {
+          navigate("/users");
+        } else {
+          navigate(`/user/${data.userId}`);
+        }
       } else {
+        setMessage("Invalid login or password");
         console.error(data.message);
       }
     } catch (error) {
@@ -42,6 +52,7 @@ export default function Login() {
   return (
     <div className="container mt-5">
       <h2>Login</h2>
+      {message && <div className="alert alert-danger"> {message}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">

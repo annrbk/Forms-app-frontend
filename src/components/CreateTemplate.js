@@ -42,7 +42,7 @@ export default function CreateTemplate() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/create-template",
+        `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/create-template`,
         {
           method: "POST",
           headers: {
@@ -64,7 +64,6 @@ export default function CreateTemplate() {
         console.log(data.message);
       }
     } catch (error) {
-      console.error(error);
       console.error("Error creating template:", error);
     }
   };

@@ -19,7 +19,7 @@ export default function TemplatePage() {
         }
 
         const response = await fetch(
-          `http://localhost:5000/api/templates/${id}`,
+          `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/${id}`,
           {
             method: "GET",
             headers: {
@@ -60,6 +60,13 @@ export default function TemplatePage() {
 
   return (
     <div className="container mt-5">
+      <button
+        type="button"
+        className="btn btn-link"
+        onClick={() => navigate(-1)}
+      >
+        Go back
+      </button>
       {template ? (
         <>
           <h2>{template.title}</h2>
