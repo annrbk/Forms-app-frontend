@@ -1,36 +1,78 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function Header() {
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+    setUser(null);
+    navigate("/");
+  };
+
+  const isAdminPage = () =>
+    location.pathname.startsWith("/user/") && user.role === "admin";
+
   return (
     <header>
-      <nav className="navbar navbar-light bg-light">
-        <div className="container-fluid d-flex justify-content-between align-items-center">
-          <a className="navbar-brand" href="/">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/">
             Forms
-          </a>
-          <form
-            className="d-flex"
-            style={{ flexGrow: 1, justifyContent: "center" }}
-          >
+          </Link>
+          <form className="d-flex mx-auto" style={{ width: "50%" }}>
             <input
               className="form-control me-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
-              style={{ width: "50%" }}
             />
             <button className="btn btn-primary" type="submit">
               Search
             </button>
           </form>
-          <div className="d-flex">
-            <Link to="/login" className="btn btn-primary me-2">
-              Login
-            </Link>
-            <Link to="/register" className="btn btn-light">
-              Sign up
-            </Link>
+          <div id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              {user ? (
+                <>
+                  {isAdminPage() && (
+                    <li className="nav-item">
+                      <Link
+                        className="btn btn-outline-primary me-2"
+                        to="/users"
+                      >
+                        Admin Page
+                      </Link>
+                    </li>
+                  )}
+                  <li className="nav-item">
+                    <button
+                      className="btn btn-primary me-2"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link className="btn btn-primary me-2" to="/login">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="btn btn-light" to="/register">
+                      Sign up
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
           </div>
         </div>
       </nav>

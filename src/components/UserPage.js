@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function UserPage() {
   const navigate = useNavigate();
   const [templates, setTemplates] = useState([]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchTemplates = async () => {
@@ -32,13 +34,7 @@ export default function UserPage() {
 
   return (
     <div className="container mt-5">
-      <button
-        type="button"
-        className="btn btn-link float-end"
-        onClick={() => navigate("/")}
-      >
-        log out
-      </button>
+      <p>Hello, {user.name}!</p>
       <h2 className="text-left">Templates</h2>
       <div className="d-flex justify-content-between mb-3">
         <div className="dropdown">

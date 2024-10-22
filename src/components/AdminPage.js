@@ -130,13 +130,6 @@ export default function AdminPage() {
 
   return (
     <div className="container mt-5">
-      <button
-        type="button"
-        className="btn btn-link float-end"
-        onClick={() => navigate("/")}
-      >
-        log out
-      </button>
       <h2>Admin Page</h2>
       <table className="table">
         <thead>

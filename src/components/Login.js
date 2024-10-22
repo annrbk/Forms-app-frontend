@@ -19,27 +19,35 @@ export default function Login() {
     console.log(userData);
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-      console.log(userData);
+      const response = await fetch(
+        `${process.env.REACT_APP_LINK_TO_BACKEND}/api/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
+
       const data = await response.json();
 
       if (response.ok) {
         sessionStorage.setItem("token", data.token);
-        setUser({ email, role: data.role });
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify({
+            email: email,
+            role: data.role,
+            name: data.name,
+            _id: data.userId,
+          })
+        );
+        setUser({ email, role: data.role, name: data.name, _id: data.userId });
         setEmail("");
         setPassword("");
 
-        if (data.role === "admin") {
-          navigate("/users");
-        } else {
-          navigate(`/user/${data.userId}`);
-        }
+        navigate("/");
       } else {
         setMessage("Invalid login or password");
         console.error(data.message);

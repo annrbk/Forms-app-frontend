@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function CreateTemplate() {
   const [message, setMessage] = useState("");
@@ -13,6 +14,7 @@ export default function CreateTemplate() {
   const [questionList, setQuestionList] = useState([
     { type: "text", label: "", required: true },
   ]);
+  const { user } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -32,9 +34,12 @@ export default function CreateTemplate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Current user:", user);
+
     const templateData = {
       ...template,
       questions: questionList,
+      author: user ? user.name : "No name",
     };
 
     const token = sessionStorage.getItem("token");
@@ -52,7 +57,6 @@ export default function CreateTemplate() {
           body: JSON.stringify(templateData),
         }
       );
-      console.log(templateData);
 
       const data = await response.json();
 
