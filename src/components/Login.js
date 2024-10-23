@@ -75,7 +75,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
+            We will never share your email with anyone else.
           </div>
         </div>
         <div className="mb-3">
