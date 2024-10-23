@@ -22,6 +22,7 @@ function App() {
           <Route path="/user/:userId" element={<UserPage />} />
           <Route path="/create-template" element={<CreateTemplate />} />
           <Route path="/template/:id" element={<TemplatePage />} />
+          <Route path="/templates/:id" element={<TemplatePage />} />
           <Route path="/users" element={<AdminPage />} />
         </Routes>
       </Router>

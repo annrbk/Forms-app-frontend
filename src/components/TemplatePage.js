@@ -3,8 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 
 export default function TemplatePage() {
   const { id } = useParams();
+  const [message, setMessage] = useState("");
   const [template, setTemplate] = useState(null);
   const [formData, setFormData] = useState({});
+  const [editTemplate, setEditTemplate] = useState(false);
+  const [isAuthor, setIsAuthor] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,9 +38,14 @@ export default function TemplatePage() {
         const templateData = await response.json();
         setTemplate(templateData);
 
+        const currentUser = sessionStorage.getItem("name");
+        if (templateData.author === currentUser) {
+          setIsAuthor(true);
+        }
+
         const initialFormData = templateData.questions.reduce(
           (acc, question) => {
-            acc[question._id] = "";
+            acc[question._id] = question.answer || "";
             return acc;
           },
           {}
@@ -58,6 +66,72 @@ export default function TemplatePage() {
     });
   };
 
+  const handleEditTemplate = () => {
+    setEditTemplate(true);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const token = sessionStorage.getItem("token");
+    try {
+      if (isAuthor) {
+        const response = await fetch(
+          `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              questions: Object.entries(formData).map(([id, label]) => ({
+                id: id,
+                label: label,
+              })),
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to update: ${response.statusText}`);
+        }
+
+        const updatedTemplate = await response.json();
+        setTemplate(updatedTemplate);
+        setEditTemplate(false);
+      } else {
+        const response = await fetch(
+          `${process.env.REACT_APP_LINK_TO_BACKEND}/api/form/${id}/forms`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              templateId: id,
+              answers: Object.entries(formData).map(
+                ([questionId, label, title]) => ({
+                  questionId: questionId,
+                  answer: label,
+                  title: title,
+                })
+              ),
+            }),
+          }
+        );
+
+        if (response.ok) {
+          setMessage("Template completed successfully");
+          setFormData("");
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="container mt-5">
       <button
@@ -67,12 +141,22 @@ export default function TemplatePage() {
       >
         Go back
       </button>
+      {isAuthor && (
+        <button
+          type="button"
+          className="btn btn-primary float-end"
+          onClick={handleEditTemplate}
+        >
+          Edit
+        </button>
+      )}
       {template ? (
         <>
+          {message && <div className="alert alert-info"> {message}</div>}
           <h2>{template.title}</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             {template.questions.map((question) => (
-              <div className="mb-3" key={question._id}>
+              <div className="mb-3" key={`${question._id}`}>
                 <label htmlFor={question._id} className="form-label">
                   {question.label ? question.label : "No question"}
                 </label>
@@ -82,11 +166,12 @@ export default function TemplatePage() {
                   id={question._id}
                   value={formData[question._id] || ""}
                   onChange={(e) => handleChange(e, question._id)}
+                  disabled={isAuthor ? !editTemplate : false}
                 />
               </div>
             ))}
             <button type="submit" className="btn btn-primary">
-              Submit
+              {isAuthor ? "Edit" : "Submit"}
             </button>
           </form>
         </>

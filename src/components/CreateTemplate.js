@@ -62,7 +62,19 @@ export default function CreateTemplate() {
 
       if (response.ok) {
         setMessage("Template successfully created");
-        console.log("Created successful!");
+        setTemplate({
+          title: "",
+          description: "",
+          isPublic: false,
+          questions: [],
+        });
+        setQuestionList([
+          {
+            type: "text",
+            label: "",
+            required: true,
+          },
+        ]);
       } else {
         console.log("Created failed");
         console.log(data.message);

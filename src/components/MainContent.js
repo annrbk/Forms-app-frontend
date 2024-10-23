@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function MainContent() {
   const [templates, setTemplates] = useState([]);
@@ -52,7 +53,12 @@ export default function MainContent() {
       </div>
       <div className="row">
         {templates.map((template) => (
-          <div key={template._id} className="col-md-4 mb-4">
+          <Link
+            to={`/templates/${template._id}`}
+            key={template._id}
+            className="col-md-4 mb-4"
+            style={{ textDecoration: "none" }}
+          >
             <div className="card h-100">
               <div className="card-body">
                 <h2 className="card-title">{template.title}</h2>
@@ -64,7 +70,7 @@ export default function MainContent() {
                 </p>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

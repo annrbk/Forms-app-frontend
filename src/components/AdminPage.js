@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 export default function AdminPage() {
-  console.log("AdminPage render");
   const [users, setUsers] = useState([]);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -130,6 +129,13 @@ export default function AdminPage() {
 
   return (
     <div className="container mt-5">
+      <button
+        type="button"
+        className="btn btn-link"
+        onClick={() => navigate(-1)}
+      >
+        Go back
+      </button>
       <h2>Admin Page</h2>
       <table className="table">
         <thead>
