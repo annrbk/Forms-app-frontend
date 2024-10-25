@@ -16,7 +16,6 @@ export default function Login() {
       email,
       password,
     };
-    console.log(userData);
 
     try {
       const response = await fetch(

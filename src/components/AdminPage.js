@@ -9,7 +9,6 @@ export default function AdminPage() {
 
   const fetchUsers = async () => {
     const token = sessionStorage.getItem("token");
-    console.log("Token:", token);
 
     try {
       if (!token || !user || user.role !== "admin") {
