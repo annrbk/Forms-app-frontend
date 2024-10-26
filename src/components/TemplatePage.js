@@ -6,7 +6,6 @@ export default function TemplatePage() {
   const [message, setMessage] = useState("");
   const [template, setTemplate] = useState(null);
   const [formData, setFormData] = useState({});
-  const [editTemplate, setEditTemplate] = useState(false);
   const [isAuthor, setIsAuthor] = useState(false);
   const navigate = useNavigate();
 
@@ -22,7 +21,7 @@ export default function TemplatePage() {
         }
 
         const response = await fetch(
-          `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/${id}`,
+          `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/user-template/${id}`,
           {
             method: "GET",
             headers: {
@@ -38,8 +37,8 @@ export default function TemplatePage() {
         const templateData = await response.json();
         setTemplate(templateData);
 
-        const currentUser = sessionStorage.getItem("name");
-        if (templateData.author === currentUser) {
+        const currentUser = JSON.parse(sessionStorage.getItem("user"));
+        if (templateData.author === currentUser.name) {
           setIsAuthor(true);
         }
 
@@ -64,10 +63,6 @@ export default function TemplatePage() {
       ...formData,
       [questionId]: e.target.value,
     });
-  };
-
-  const handleEditTemplate = () => {
-    setEditTemplate(true);
   };
 
   const handleSubmit = async (e) => {
@@ -99,7 +94,7 @@ export default function TemplatePage() {
 
         const updatedTemplate = await response.json();
         setTemplate(updatedTemplate);
-        setEditTemplate(false);
+        setMessage("Template updated successfully!");
       } else {
         const response = await fetch(
           `${process.env.REACT_APP_LINK_TO_BACKEND}/api/form/${id}/forms`,
@@ -141,15 +136,6 @@ export default function TemplatePage() {
       >
         Go back
       </button>
-      {isAuthor && (
-        <button
-          type="button"
-          className="btn btn-primary float-end"
-          onClick={handleEditTemplate}
-        >
-          Edit
-        </button>
-      )}
       {template ? (
         <>
           {message && <div className="alert alert-info"> {message}</div>}
@@ -166,7 +152,6 @@ export default function TemplatePage() {
                   id={question._id}
                   value={formData[question._id] || ""}
                   onChange={(e) => handleChange(e, question._id)}
-                  disabled={isAuthor ? !editTemplate : false}
                 />
               </div>
             ))}

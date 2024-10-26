@@ -10,12 +10,10 @@ export default function CreateTemplate() {
     isPublic: false,
     questions: [],
   });
-
   const [questionList, setQuestionList] = useState([
     { type: "text", label: "", required: true },
   ]);
   const { user } = useContext(UserContext);
-
   const navigate = useNavigate();
 
   const addQuestion = () => {
@@ -34,8 +32,6 @@ export default function CreateTemplate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Current user:", user);
-
     const templateData = {
       ...template,
       questions: questionList,
@@ -43,7 +39,6 @@ export default function CreateTemplate() {
     };
 
     const token = sessionStorage.getItem("token");
-    console.log(token);
 
     try {
       const response = await fetch(
@@ -76,7 +71,6 @@ export default function CreateTemplate() {
           },
         ]);
       } else {
-        console.log("Created failed");
         console.log(data.message);
       }
     } catch (error) {
@@ -167,7 +161,6 @@ export default function CreateTemplate() {
           type="button"
           className="btn btn-outline-primary"
           onClick={addQuestion}
-          disabled={questionList.length >= 4}
         >
           Add question
         </button>
