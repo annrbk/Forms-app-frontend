@@ -10,6 +10,7 @@ import CreateTemplate from "./components/CreateTemplate";
 import TemplatePage from "./components/TemplatePage";
 import { UserProvider } from "./context/UserContext";
 import AdminPage from "./components/AdminPage";
+import FormPage from "./components/FormPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/template/:id" element={<TemplatePage />} />
           <Route path="/templates/:id" element={<TemplatePage />} />
           <Route path="/users" element={<AdminPage />} />
+          <Route path="/form/:id" element={<FormPage />} />
         </Routes>
       </Router>
     </UserProvider>

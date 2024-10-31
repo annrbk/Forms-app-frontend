@@ -222,14 +222,9 @@ export default function UserPage() {
                         <button
                           type="button"
                           className="btn btn-outline-success me-2"
+                          onClick={() => navigate(`/form/${form._id}`)}
                         >
                           Look
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-outline-primary me-2"
-                        >
-                          Edit
                         </button>
                         <button
                           type="button"
