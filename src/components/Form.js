@@ -1,48 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { fetchForm } from "../services/formService";
+import BackButton from "./BackButton";
 
 export default function FormPage() {
   const { id } = useParams();
   const [form, setForm] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchForm = async () => {
+    const fetchFormData = async () => {
       try {
         const token = sessionStorage.getItem("token");
 
-        const response = await fetch(
-          `${process.env.REACT_APP_LINK_TO_BACKEND}/api/form/user-form/${id}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch: ${response.statusText}`);
-        }
-
-        const formData = await response.json();
-        setForm(formData);
+        const data = await fetchForm(id, token);
+        setForm(data);
       } catch (error) {
         console.error("Error fetching form:", error);
       }
     };
-    fetchForm();
+    fetchFormData();
   }, [id]);
 
   return (
     <div className="container mt-5">
-      <button
-        type="button"
-        className="btn btn-link"
-        onClick={() => navigate(-1)}
-      >
-        Go back
-      </button>
+      <BackButton />
       {form ? (
         <>
           <h2>{form.templateId.title}</h2>

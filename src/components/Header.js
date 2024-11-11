@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 export default function Header() {
   const { user, setUser } = useContext(UserContext);
+  const [query, setQuery] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,6 +18,16 @@ export default function Header() {
 
   const isAdminPage = () =>
     location.pathname.startsWith("/user/") && user.role === "admin";
+
+  const querySearch = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleResult = (e) => {
+    e.preventDefault();
+    navigate(`/search?query=${query}`);
+    setQuery("");
+  };
 
   return (
     <header>
@@ -30,8 +42,14 @@ export default function Header() {
               type="search"
               placeholder="Search"
               aria-label="Search"
+              value={query}
+              onChange={querySearch}
             />
-            <button className="btn btn-primary" type="submit">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              onClick={handleResult}
+            >
               Search
             </button>
           </form>

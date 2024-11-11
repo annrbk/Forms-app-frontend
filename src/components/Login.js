@@ -1,60 +1,9 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import React from "react";
+import useLogin from "../hooks/useLogin";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const { setUser } = useContext(UserContext);
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const userData = {
-      email,
-      password,
-    };
-
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_LINK_TO_BACKEND}/api/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        sessionStorage.setItem("token", data.token);
-        sessionStorage.setItem(
-          "user",
-          JSON.stringify({
-            email: email,
-            role: data.role,
-            name: data.name,
-            _id: data.userId,
-          })
-        );
-        setUser({ email, role: data.role, name: data.name, _id: data.userId });
-        setEmail("");
-        setPassword("");
-
-        navigate("/");
-      } else {
-        setMessage("Invalid login or password");
-        console.error(data.message);
-      }
-    } catch (error) {
-      console.error("Login error", error);
-    }
-  };
+  const { email, password, message, setEmail, setPassword, handleSubmit } =
+    useLogin();
 
   return (
     <div className="container mt-5">

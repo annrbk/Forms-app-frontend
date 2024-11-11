@@ -1,0 +1,59 @@
+import { checkResponse } from "./errorService";
+
+export const fetchTemplate = async (id, token) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/user-template/${id}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return checkResponse(response);
+};
+
+export const editTemplate = async (id, token, formData) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/${id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        questions: Object.entries(formData).map(([id, label]) => ({
+          id: id,
+          label: label,
+        })),
+      }),
+    }
+  );
+
+  return checkResponse(response);
+};
+
+export const fillTemplate = async (id, token, formData) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_LINK_TO_BACKEND}/api/form/${id}/forms`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        templateId: id,
+        answers: Object.entries(formData).map(([questionId, label, title]) => ({
+          questionId: questionId,
+          answer: label,
+          title: title,
+        })),
+      }),
+    }
+  );
+
+  return checkResponse(response);
+};

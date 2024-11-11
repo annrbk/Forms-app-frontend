@@ -1,35 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Card from "./Card";
+import useMainActions from "../hooks/useMainActions";
 
 export default function MainContent() {
-  const [templates, setTemplates] = useState([]);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const { templates, tags } = useMainActions();
 
-  useEffect(() => {
-    const fetchTemplates = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/latest-templates`,
-          {
-            method: "GET",
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch: ${response.statusText}`);
-        }
-
-        const latestTemplates = await response.json();
-        setTemplates(latestTemplates);
-      } catch (error) {
-        console.error("Error fetching latest templates:", error);
-      }
-    };
-    fetchTemplates();
-  }, []);
+  const handleTag = (tag) => {
+    navigate(`/templates-tag/${tag._id}`);
+  };
 
   const PersonalPageClick = () => {
     if (user && user._id) {
@@ -59,18 +42,24 @@ export default function MainContent() {
             className="col-md-4 mb-4"
             style={{ textDecoration: "none" }}
           >
-            <div className="card h-100">
-              <div className="card-body">
-                <h2 className="card-title">{template.title}</h2>
-                <p className="card-text">{template.description}</p>
-                <p className="card-text">
-                  <small className="text-muted">
-                    Author: {template.author}
-                  </small>
-                </p>
-              </div>
-            </div>
+            <Card
+              title={template.title}
+              description={template.description}
+              author={template.author}
+            />
           </Link>
+        ))}
+      </div>
+      <div>
+        {tags.map((tag) => (
+          <span
+            className="badge border border-primary text-primary me-2 mt-3 py-2 px-3 rounded-pill"
+            key={tag._id}
+            onClick={() => handleTag(tag)}
+            style={{ cursor: "pointer" }}
+          >
+            {tag.name}
+          </span>
         ))}
       </div>
     </div>

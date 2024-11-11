@@ -1,51 +1,17 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import useRegister from "../hooks/useRegister";
 
 export default function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const userData = {
-      name,
-      email,
-      password,
-    };
-
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_LINK_TO_BACKEND}/api/auth/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage("Registration successful!");
-        setName("");
-        setEmail("");
-        setPassword("");
-        navigate("/login");
-      } else {
-        setMessage("Registration failed");
-        console.log(data.message);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const {
+    name,
+    email,
+    password,
+    message,
+    setName,
+    setEmail,
+    setPassword,
+    handleSubmit,
+  } = useRegister();
 
   return (
     <div className="container mt-5">
