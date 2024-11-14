@@ -1,0 +1,19 @@
+{
+  "message.button-back": "Вярнуцца",
+  "message.title": "Стварыць новы шаблон",
+  "message.label-title": "Загаловак",
+  "message.label-desc": "Апісанне",
+  "message.check-box": "Публічны шаблон",
+  "message.title-questions": "Пытанні",
+  "message.label-questions": "Пытанне {index}",
+  "message.placeholder-questions": "Увядзіце тэкст пытання",
+  "message.option-short": "Кароткі тэкст",
+  "message.option-long": "Доўгі тэкст",
+  "message.option-number": "лічба",
+  "message.option-check": "Сцяжок",
+  "message.button-add": "Дадаць пытанне",
+  "message.title-tags": "Дадаць тэгі",
+  "message.placeholder-tag": "увядзіце тэгі",
+  "message.tag-info": "націсніце enter, каб дадаць новы тэг",
+  "message.button-save": "Захаваць шаблон"
+}

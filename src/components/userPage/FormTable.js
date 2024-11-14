@@ -1,24 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormattedMessage } from "react-intl";
 
 export default function FormTable({ forms, navigate, deleteForm }) {
   return (
     <>
-      <h2 className="text-left">Completed forms</h2>
+      <h2 className="text-left">
+        <FormattedMessage
+          id="message.form-title"
+          defaultMessage="Completed forms"
+        />
+      </h2>
       <div className="d-flex justify-content-between mb-3">
         <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle btn-sm"
-            type="button"
-            id="sortDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Sort
-          </button>
           <ul className="dropdown-menu" aria-labelledby="sortDropdown">
             <li>
-              <button className="dropdown-item">Name</button>
+              <button className="dropdown-item">
+                <FormattedMessage
+                  id="message.button-sort"
+                  defaultMessage="Name"
+                />
+              </button>
             </li>
             <li>
               <button className="dropdown-item">Date of change</button>
@@ -30,7 +32,12 @@ export default function FormTable({ forms, navigate, deleteForm }) {
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
+            <th scope="col">
+              <FormattedMessage
+                id="message.button-sort"
+                defaultMessage="Name"
+              />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -46,14 +53,20 @@ export default function FormTable({ forms, navigate, deleteForm }) {
                       className="btn btn-outline-success me-2"
                       onClick={() => navigate(`/form/${form._id}`)}
                     >
-                      Look
+                      <FormattedMessage
+                        id="message.button-look"
+                        defaultMessage="Look"
+                      />
                     </button>
                     <button
                       type="button"
                       className="btn btn-outline-danger"
                       onClick={() => deleteForm(form._id)}
                     >
-                      Delete
+                      <FormattedMessage
+                        id="message.button-delete"
+                        defaultMessage="Delete"
+                      />
                     </button>
                   </div>
                 </td>

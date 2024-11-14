@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormattedMessage } from "react-intl";
 
 export default function NewTemplateDetails({
   message,
@@ -9,7 +10,12 @@ export default function NewTemplateDetails({
 }) {
   return (
     <>
-      <h2>Create a New Template</h2>
+      <h2>
+        <FormattedMessage
+          id="message.title"
+          defaultMessage="Create a New Template"
+        />
+      </h2>
       {message && <div className="alert alert-info"> {message}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -46,7 +52,10 @@ export default function NewTemplateDetails({
             id="isPublic"
           />
           <label className="form-check-label" htmlFor="isPublic">
-            Public template
+            <FormattedMessage
+              id="message.check-box"
+              defaultMessage="Public template"
+            />
           </label>
         </div>
       </form>

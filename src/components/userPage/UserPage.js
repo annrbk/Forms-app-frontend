@@ -6,6 +6,7 @@ import useSortTemplateData from "../../hooks/useSortTemplateData";
 import FormTable from "./FormTable";
 import TemplateTable from "./TemplateTable";
 import BackButton from "../BackButton";
+import { FormattedMessage } from "react-intl";
 
 export default function UserPage() {
   const navigate = useNavigate();
@@ -22,7 +23,13 @@ export default function UserPage() {
       <BackButton />
       {user ? (
         <>
-          <p className="float-end">Hello, {user.name}!</p>
+          <p className="float-end">
+            <FormattedMessage
+              id="message.greeting"
+              defaultMessage="Hello, {name}!"
+              values={{ name: user.name }}
+            />
+          </p>
           <TemplateTable
             templates={templates}
             requestSort={requestSort}

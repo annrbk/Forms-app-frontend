@@ -1,5 +1,6 @@
 import React from "react";
 import useLogin from "../hooks/useLogin";
+import { FormattedMessage } from "react-intl";
 
 export default function Login() {
   const { email, password, message, setEmail, setPassword, handleSubmit } =
@@ -7,12 +8,17 @@ export default function Login() {
 
   return (
     <div className="container mt-5">
-      <h2>Login</h2>
+      <h2 className="text-left">
+        <FormattedMessage id="message.title" defaultMessage="Login" />
+      </h2>
       {message && <div className="alert alert-danger"> {message}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
+            <FormattedMessage
+              id="message.label-email"
+              defaultMessage="Email address"
+            />
           </label>
           <input
             type="email"
@@ -23,12 +29,18 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <div id="emailHelp" className="form-text">
-            We will never share your email with anyone else.
+            <FormattedMessage
+              id="message.email-help"
+              defaultMessage="We will never share your email with anyone else."
+            />
           </div>
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
+            <FormattedMessage
+              id="message.label-password"
+              defaultMessage="Password"
+            />
           </label>
           <input
             type="password"
@@ -39,7 +51,7 @@ export default function Login() {
           />
         </div>
         <button type="submit" className="btn btn-primary">
-          Login
+          <FormattedMessage id="message.button-login" defaultMessage="Login" />
         </button>
       </form>
     </div>

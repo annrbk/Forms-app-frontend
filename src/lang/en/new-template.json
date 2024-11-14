@@ -1,0 +1,19 @@
+{
+  "message.button-back": "Go back",
+  "message.title": "Create a New Template",
+  "message.label-title": "Title",
+  "message.label-desc": "Description",
+  "message.check-box": "Public template",
+  "message.title-questions": "Questions",
+  "message.label-questions": "Question {index}",
+  "message.placeholder-questions": "Enter question text",
+  "message.option-short": "Short Text",
+  "message.option-long": "Long Text",
+  "message.option-number": "Number",
+  "message.option-check": "Checkbox",
+  "message.button-add": "Add question",
+  "message.title-tags": "Add tags",
+  "message.placeholder-tag": "enter tags",
+  "message.tag-info": "press enter to add new tag",
+  "message.button-save": "Save template"
+}

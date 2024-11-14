@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 
 const BackButton = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const BackButton = () => {
         className="btn btn-link"
         onClick={() => navigate(-1)}
       >
-        Go back
+        <FormattedMessage id="message.button-back" defaultMessage="Go back" />
       </button>
     </div>
   );

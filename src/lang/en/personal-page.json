@@ -1,0 +1,11 @@
+{
+  "message.button-back": "Go back",
+  "message.template-title": "Templates",
+  "message.greeting": "Hello, {name}!",
+  "message.button-new": "Create a new template",
+  "message.button-sort": "Name",
+  "message.button-look": "Look",
+  "message.button-edit": "Edit",
+  "message.button-delete": "Delete",
+  "message.form-title": "Completed forms"
+}

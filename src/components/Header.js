@@ -1,10 +1,15 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { FormattedMessage } from "react-intl";
+import { useLanguageContext } from "../context/LanguageContext";
+import { useIntl } from "react-intl";
 
 export default function Header() {
   const { user, setUser } = useContext(UserContext);
   const [query, setQuery] = useState("");
+  const { locale, changeLanguage } = useLanguageContext();
+  const intl = useIntl();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,8 +45,10 @@ export default function Header() {
             <input
               className="form-control me-2"
               type="search"
-              placeholder="Search"
-              aria-label="Search"
+              placeholder={intl.formatMessage({
+                id: "message.label-search",
+                defaultMessage: "Search",
+              })}
               value={query}
               onChange={querySearch}
             />
@@ -50,10 +57,22 @@ export default function Header() {
               type="submit"
               onClick={handleResult}
             >
-              Search
+              <FormattedMessage
+                id="message.search-button"
+                defaultMessage="Search"
+              />
             </button>
           </form>
-          <div id="navbarNav">
+          <div id="navbarNav" className="d-flex align-items-center">
+            <select
+              className="form-select form-select-sm me-3"
+              style={{ width: "auto" }}
+              value={locale}
+              onChange={(e) => changeLanguage(e.target.value)}
+            >
+              <option value="en">English</option>
+              <option value="be">Беларуская</option>
+            </select>
             <ul className="navbar-nav ms-auto">
               {user ? (
                 <>
@@ -63,7 +82,10 @@ export default function Header() {
                         className="btn btn-outline-primary me-2"
                         to="/users"
                       >
-                        Admin Page
+                        <FormattedMessage
+                          id="message.button-admin"
+                          defaultMessage="Admin Page"
+                        />
                       </Link>
                     </li>
                   )}
@@ -72,7 +94,10 @@ export default function Header() {
                       className="btn btn-primary me-2"
                       onClick={handleLogout}
                     >
-                      Logout
+                      <FormattedMessage
+                        id="message.logout-button"
+                        defaultMessage="Logout"
+                      />
                     </button>
                   </li>
                 </>
@@ -80,12 +105,18 @@ export default function Header() {
                 <>
                   <li className="nav-item">
                     <Link className="btn btn-primary me-2" to="/login">
-                      Login
+                      <FormattedMessage
+                        id="message.login-button"
+                        defaultMessage="Login"
+                      />
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="btn btn-light" to="/register">
-                      Sign up
+                      <FormattedMessage
+                        id="message.sign-up-button"
+                        defaultMessage="Sign up"
+                      />
                     </Link>
                   </li>
                 </>

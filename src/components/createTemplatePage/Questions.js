@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormattedMessage } from "react-intl";
 
 export default function Questions({
   questionList,
@@ -8,10 +9,21 @@ export default function Questions({
 }) {
   return (
     <>
-      <h3>Questions</h3>
+      <h3>
+        <FormattedMessage
+          id="message.title-questions"
+          defaultMessage="Questions"
+        />
+      </h3>
       {questionList.map((question, index) => (
         <div key={index} className="mb-3">
-          <label className="form-label">Question {index + 1}</label>
+          <label className="form-label">
+            <FormattedMessage
+              id="message.label-questions"
+              defaultMessage="Question {index}"
+              values={{ index: index + 1 }}
+            />
+          </label>
           <input
             type="text"
             name="label"
@@ -27,10 +39,30 @@ export default function Questions({
             value={question.type}
             onChange={(e) => changeQuestion(index, e)}
           >
-            <option value="text">Short Text</option>
-            <option value="textarea">Long Text</option>
-            <option value="number">Number</option>
-            <option value="checkbox">Checkbox</option>
+            <option value="text">
+              <FormattedMessage
+                id="message.option-short"
+                defaultMessage="Short Text"
+              />
+            </option>
+            <option value="textarea">
+              <FormattedMessage
+                id="message.option-long"
+                defaultMessage="Long Text"
+              />
+            </option>
+            <option value="number">
+              <FormattedMessage
+                id="message.option-number"
+                defaultMessage="Number"
+              />
+            </option>
+            <option value="checkbox">
+              <FormattedMessage
+                id="message.option-check"
+                defaultMessage="Checkbox"
+              />
+            </option>
           </select>
         </div>
       ))}
@@ -39,7 +71,10 @@ export default function Questions({
         className="btn btn-outline-primary"
         onClick={addQuestion}
       >
-        Add question
+        <FormattedMessage
+          id="message.button-add"
+          defaultMessage="Add question"
+        />
       </button>
     </>
   );

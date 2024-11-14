@@ -1,0 +1,11 @@
+{
+  "message.button-back": "Вярнуцца",
+  "message.template-title": "Шаблоны",
+  "message.greeting": "Прывітанне, {name}!",
+  "message.button-new": "Стварыць новы шаблон",
+  "message.button-sort": "Імя",
+  "message.button-look": "Глядзець",
+  "message.button-edit": "Рэдагаваць",
+  "message.button-delete": "Выдаліць",
+  "message.form-title": "Запоўненыя формы"
+}

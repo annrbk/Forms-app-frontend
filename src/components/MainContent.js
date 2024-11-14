@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import useMainActions from "../hooks/useMainActions";
+import { FormattedMessage } from "react-intl";
 
 export default function MainContent() {
   const { user } = useContext(UserContext);
@@ -23,14 +24,22 @@ export default function MainContent() {
   return (
     <div className="container my-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="mb-0">Latest Templates</h1>
+        <h1 className="text-left">
+          <FormattedMessage
+            id="message.main-title"
+            defaultMessage="Latest Templates"
+          />
+        </h1>
         {user && (
           <button
             type="button"
             className="btn btn-outline-primary"
             onClick={PersonalPageClick}
           >
-            Personal page
+            <FormattedMessage
+              id="message.button-personal"
+              defaultMessage="Personal page"
+            />
           </button>
         )}
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import useRegister from "../hooks/useRegister";
+import { FormattedMessage } from "react-intl";
 
 export default function Register() {
   const {
@@ -15,13 +16,16 @@ export default function Register() {
 
   return (
     <div className="container mt-5">
-      <h2>Sign up</h2>
+      <h2 className="text-left">
+        <FormattedMessage id="message.title" defaultMessage="Sign up" />
+      </h2>
       {message && <div className="alert alert-info">{message}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputName1" className="form-label">
-            Name
+            <FormattedMessage id="message.label-name" defaultMessage="Name" />
           </label>
+
           <input
             type="text"
             className="form-control"
@@ -31,8 +35,11 @@ export default function Register() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            <FormattedMessage
+              id="message.label-email"
+              defaultMessage="Email address"
+            />
           </label>
           <input
             type="email"
@@ -41,13 +48,23 @@ export default function Register() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div id="emailHelp" className="form-text">
+          <FormattedMessage
+            id="emailHelp"
+            className="form-text"
+            defaultMessage="We will never share your email with anyone else."
+          >
             We will never share your email with anyone else.
-          </div>
+          </FormattedMessage>
         </div>
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
+          {/* <label htmlFor="exampleInputPassword1" className="form-label">
             Password
+          </label> */}
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            <FormattedMessage
+              id="message.label-password"
+              defaultMessage="Password"
+            />
           </label>
           <input
             type="password"
@@ -57,8 +74,11 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        {/* <button type="submit" className="btn btn-primary">
           Sign up
+        </button> */}
+        <button type="submit" className="btn btn-primary">
+          <FormattedMessage id="message.button-sign" defaultMessage="Sign up" />
         </button>
       </form>
     </div>

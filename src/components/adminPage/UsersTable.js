@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormattedMessage } from "react-intl";
 
 export default function UsersTable({
   users,
@@ -12,11 +13,27 @@ export default function UsersTable({
     <table className="table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th>
+            <FormattedMessage id="message.table-name" defaultMessage="Name" />
+          </th>
+          <th>
+            <FormattedMessage id="message.table-email" defaultMessage="Email" />
+          </th>
+          <th>
+            <FormattedMessage id="message.table-role" defaultMessage="Role" />
+          </th>
+          <th>
+            <FormattedMessage
+              id="message.table-status"
+              defaultMessage="Status"
+            />
+          </th>
+          <th>
+            <FormattedMessage
+              id="message.table-actions"
+              defaultMessage="Actions"
+            />
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -31,19 +48,29 @@ export default function UsersTable({
                 className="btn btn-outline-primary me-2"
                 onClick={() => roleChange(user._id, "admin")}
               >
-                Make admin
+                <FormattedMessage
+                  id="message.button-make"
+                  defaultMessage="Make admin"
+                />
               </button>
               <button
                 className="btn btn-outline-dark me-2"
                 onClick={() => roleChange(user._id, "user")}
               >
-                Delete admin
+                <FormattedMessage
+                  id="message.button-del"
+                  defaultMessage="Delete admin"
+                />
               </button>
               <button
                 className="btn btn-outline-danger me-2"
                 onClick={() => blockUser(user._id)}
               >
-                Block
+                <FormattedMessage
+                  id="message.button-block"
+                  defaultMessage="Block"
+                />
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"

@@ -1,0 +1,12 @@
+{
+  "message.button-back": "Go back",
+  "message.title-admin": "Admin Page",
+  "message.table-name": "Name",
+  "message.table-email": "Email",
+  "message.table-role": "Role",
+  "message.table-status": "Status",
+  "message.table-actions": "Actions",
+  "message.button-make": "Make admin",
+  "message.button-del": "Delete admin",
+  "message.button-block": "Block"
+}

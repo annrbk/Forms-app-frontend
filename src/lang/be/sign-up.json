@@ -1,0 +1,8 @@
+{
+  "message.title": "Зарэгістравацца",
+  "message.label-name": "Імя",
+  "message.label-email": "Адрас электроннай пошты",
+  "message.email-help": "Мы ніколі нікому не перадамо вашу электронную пошту.",
+  "message.label-password": "Пароль",
+  "message.button-sign": "Зарэгістравацца"
+}

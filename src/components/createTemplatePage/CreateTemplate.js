@@ -3,6 +3,7 @@ import BackButton from "../BackButton";
 import useCreateTemplateActions from "../../hooks/useCreateTemplateActions";
 import Questions from "./Questions";
 import NewTemplateDetails from "./NewTemplateDetails";
+import { FormattedMessage } from "react-intl";
 
 export default function CreateTemplate() {
   const {
@@ -32,9 +33,16 @@ export default function CreateTemplate() {
         addQuestion={addQuestion}
       />
       <div>
-        <h3 className="mt-3">Add tags</h3>
+        <h3 className="mt-3">
+          <FormattedMessage id="message.title-tags" defaultMessage="Add tags" />
+        </h3>
         <TagsInput value={tags} onChange={setTags} placeHolder="enter tags" />
-        <em>press enter to add new tag</em>
+        <em>
+          <FormattedMessage
+            id="message.tag-info"
+            defaultMessage="press enter to add new tag"
+          />
+        </em>
       </div>
       <div className="mt-4">
         <button
@@ -42,7 +50,10 @@ export default function CreateTemplate() {
           className="btn btn-primary"
           onClick={handleSubmit}
         >
-          Save template
+          <FormattedMessage
+            id="message.button-save"
+            defaultMessage="Save template"
+          />
         </button>
       </div>
     </div>

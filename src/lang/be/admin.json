@@ -1,0 +1,12 @@
+{
+  "message.button-back": "Вярнуцца",
+  "message.title-admin": "Старонка адміністратара",
+  "message.table-name": "Імя",
+  "message.table-email": "Электронная пошта",
+  "message.table-role": "Роля",
+  "message.table-status": "Статус",
+  "message.table-actions": "Дзеянні",
+  "message.button-make": "Зрабіць адміністратарам",
+  "message.button-del": "Выдаліць адміністратара",
+  "message.button-block": "Заблакаваць"
+}

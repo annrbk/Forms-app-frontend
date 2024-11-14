@@ -1,0 +1,8 @@
+{
+  "message.title": "Sign up",
+  "message.label-name": "Name",
+  "message.label-email": "Email address",
+  "message.email-help": "We will never share your email with anyone else.",
+  "message.label-password": "Password",
+  "message.button-sign": "Sign up"
+}
