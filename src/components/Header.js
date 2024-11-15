@@ -68,7 +68,7 @@ export default function Header() {
               className="form-select form-select-sm me-3"
               style={{ width: "auto" }}
               value={locale}
-              onChange={(e) => changeLanguage(e.target.value)}
+              onChange={changeLanguage}
             >
               <option value="en">English</option>
               <option value="be">Беларуская</option>
