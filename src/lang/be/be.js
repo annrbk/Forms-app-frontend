@@ -5,6 +5,7 @@ import beMain from "../be/main.json";
 import beNewTemplate from "../be/new-template.json";
 import bePersonalPage from "../be/personal-page.json";
 import beSignUp from "../be/sign-up.json";
+import beTemplate from "../be/template.json";
 
 export const messages_be = {
   ...beAdmin,
@@ -14,4 +15,5 @@ export const messages_be = {
   ...beNewTemplate,
   ...bePersonalPage,
   ...beSignUp,
+  ...beTemplate,
 };

@@ -9,7 +9,7 @@ export default function Login() {
   return (
     <div className="container mt-5">
       <h2 className="text-left">
-        <FormattedMessage id="message.title" defaultMessage="Login" />
+        <FormattedMessage id="message.title-login" defaultMessage="Login" />
       </h2>
       {message && <div className="alert alert-danger"> {message}</div>}
       <form onSubmit={handleSubmit}>

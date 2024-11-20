@@ -1,6 +1,6 @@
 {
   "message.button-back": "Вярнуцца",
-  "message.title": "Стварыць новы шаблон",
+  "message.title-new": "Стварыць новы шаблон",
   "message.label-title": "Загаловак",
   "message.label-desc": "Апісанне",
   "message.check-box": "Публічны шаблон",
@@ -15,5 +15,6 @@
   "message.title-tags": "Дадаць тэгі",
   "message.placeholder-tag": "увядзіце тэгі",
   "message.tag-info": "націсніце enter, каб дадаць новы тэг",
-  "message.button-save": "Захаваць шаблон"
+  "message.button-save": "Захаваць шаблон",
+  "message.button-send": "Адправіць"
 }

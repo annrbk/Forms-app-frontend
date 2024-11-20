@@ -1,5 +1,5 @@
 {
-  "message.title": "Login",
+  "message.title-admin": "Login",
   "message.label-email": "Email address",
   "message.email-help": "We will never share your email with anyone else.",
   "message.label-password": "Password",

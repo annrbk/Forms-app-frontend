@@ -1,6 +1,6 @@
 {
   "message.button-back": "Go back",
-  "message.title": "Create a New Template",
+  "message.title-new": "Create a New Template",
   "message.label-title": "Title",
   "message.label-desc": "Description",
   "message.check-box": "Public template",

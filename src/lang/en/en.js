@@ -5,6 +5,7 @@ import enMain from "../en/main.json";
 import enNewTemplate from "../en/new-template.json";
 import enPersonalPage from "../en/personal-page.json";
 import enSignUp from "../en/sign-up.json";
+import enTemplate from "../en/template.json";
 
 export const messages_en = {
   ...enAdmin,
@@ -14,4 +15,5 @@ export const messages_en = {
   ...enNewTemplate,
   ...enPersonalPage,
   ...enSignUp,
+  ...enTemplate,
 };

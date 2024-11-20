@@ -12,7 +12,7 @@ export default function NewTemplateDetails({
     <>
       <h2>
         <FormattedMessage
-          id="message.title"
+          id="message.title-new"
           defaultMessage="Create a New Template"
         />
       </h2>
