@@ -18,7 +18,7 @@ export default function FormTable({ forms, navigate, deleteForm }) {
               <button className="dropdown-item">
                 <FormattedMessage
                   id="message.button-sort"
-                  defaultMessage="Name"
+                  defaultMessage="Title"
                 />
               </button>
             </li>
@@ -35,6 +35,12 @@ export default function FormTable({ forms, navigate, deleteForm }) {
             <th scope="col">
               <FormattedMessage
                 id="message.button-sort"
+                defaultMessage="Title"
+              />
+            </th>
+            <th scope="col">
+              <FormattedMessage
+                id="message.button-name"
                 defaultMessage="Name"
               />
             </th>
@@ -45,8 +51,9 @@ export default function FormTable({ forms, navigate, deleteForm }) {
             forms.map((form, index) => (
               <tr key={form._id}>
                 <th scope="row">{index + 1}</th>
+                <td>{form.templateId.title}</td>
                 <td>
-                  {form.templateId.title}
+                  {form.author}
                   <div className="float-end">
                     <button
                       type="button"

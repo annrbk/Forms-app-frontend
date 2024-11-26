@@ -30,3 +30,16 @@ export const getComments = async (token, templateId) => {
 
   return checkResponse(response);
 };
+
+export const apiDeleteComment = async (commentId) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_LINK_TO_BACKEND}/api/comments/${commentId}/delete`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    }
+  );
+  return checkResponse(response);
+};

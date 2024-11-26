@@ -4,6 +4,7 @@ import UseTemplateActions from "../hooks/useTemplateActions";
 import CommentCard from "./comments/CommentCard";
 import { useParams } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import useComment from "../hooks/useComment";
 
 export default function Template() {
   const { id } = useParams();
@@ -17,6 +18,8 @@ export default function Template() {
     formData,
     isAuthor,
   } = UseTemplateActions();
+
+  const { deleteComment } = useComment();
 
   return (
     <div className="container mt-5">
@@ -64,7 +67,7 @@ export default function Template() {
               )}
             </button>
           </form>
-          <CommentCard templateId={id} />
+          <CommentCard templateId={id} deleteComment={deleteComment} />
         </>
       ) : (
         <p>Loading template...</p>

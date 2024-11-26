@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createComment, getComments } from "../services/commentService";
+import { apiDeleteComment } from "../services/commentService";
 
 const useComment = (templateId) => {
   const [comments, setComments] = useState([]);
@@ -39,11 +40,21 @@ const useComment = (templateId) => {
     }
   };
 
+  const deleteComment = async (commentId) => {
+    try {
+      await apiDeleteComment(commentId);
+      setComments(comments.filter((comment) => comment._id !== commentId));
+    } catch (error) {
+      console.error("Error delete comment:", error);
+    }
+  };
+
   return {
     comments,
     commentSubmit,
     textComment,
     setTextComment,
+    deleteComment,
   };
 };
 
