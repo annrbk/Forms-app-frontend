@@ -10,8 +10,8 @@ export default function CommentCard({ templateId, deleteComment }) {
   const { user } = useContext(UserContext);
   const [visibleComments, setVisibleComments] = useState(5);
 
-  const isAdminRole = () => {
-    return user.role === "admin";
+  const isCanDelete = (comment) => {
+    return user.role === "admin" || user._id === comment.author._id;
   };
 
   function handleMoreClick() {
@@ -29,7 +29,7 @@ export default function CommentCard({ templateId, deleteComment }) {
           {comments.slice(0, visibleComments).map((comment) => (
             <div className="card mb-3" key={comment._id}>
               <div className="card-body">
-                {isAdminRole() && (
+                {isCanDelete(comment) && (
                   <button
                     className="btn btn-link text-danger position-absolute top-0 end-0 m-2 p-0"
                     onClick={() => deleteComment(comment._id)}
@@ -47,7 +47,7 @@ export default function CommentCard({ templateId, deleteComment }) {
                     </svg>
                   </button>
                 )}
-                <h6 className="card-title mb-1">{comment.author?.email}</h6>
+                <h6 className="card-title mb-1">{comment.author.email}</h6>
                 <small className="text-muted">
                   {new Date(comment.date).toLocaleString()}
                 </small>
@@ -55,7 +55,7 @@ export default function CommentCard({ templateId, deleteComment }) {
               </div>
             </div>
           ))}
-          {comments.length > 5 && (
+          {comments.length > visibleComments && (
             <button
               type="button"
               className="btn btn-link"
