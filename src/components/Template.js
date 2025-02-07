@@ -1,6 +1,6 @@
 import React from "react";
 import BackButton from "./BackButton";
-import UseTemplateActions from "../hooks/useTemplateActions";
+import useTemplateActions from "../hooks/useTemplateActions";
 import CommentCard from "./comments/CommentCard";
 import { useParams } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
@@ -13,11 +13,16 @@ export default function Template() {
     message,
     template,
     tags,
-    handleChange,
+    handleAnswerChange,
     handleSubmit,
     formData,
     isAuthor,
-  } = UseTemplateActions();
+    editingQuestionId,
+    setEditingQuestionId,
+    handleEditQuestion,
+    saveEditedQuestion,
+    handleCheckboxChange,
+  } = useTemplateActions();
 
   const { deleteComment } = useComment();
 
@@ -26,8 +31,9 @@ export default function Template() {
       <BackButton />
       {template ? (
         <>
-          {message && <div className="alert alert-info"> {message}</div>}
+          {message && <div className="alert alert-info">{message}</div>}
           <h2>{template.title}</h2>
+          <p>{template.description}</p>
           <div className="mb-2">
             {tags.map((tag) => (
               <span
@@ -40,31 +46,103 @@ export default function Template() {
           </div>
           <form className="mt-4" onSubmit={handleSubmit}>
             {template.questions.map((question) => (
-              <div key={`${question._id}`}>
-                <label htmlFor={question._id} className="form-label">
-                  {question.label ? question.label : "No question"}
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id={question._id}
-                  value={formData[question._id] || ""}
-                  onChange={(e) => handleChange(e, question._id)}
-                />
+              <div
+                key={question._id}
+                className="p-3 mb-3"
+                style={{
+                  width: "70%",
+                  border: "1px solid #f0ebeb",
+                  borderRadius: "0.5rem",
+                  position: "relative",
+                }}
+              >
+                <div className="d-flex justify-content-between align-items-center">
+                  {editingQuestionId === question._id ? (
+                    <input
+                      type="text"
+                      className="form-control border-warning"
+                      value={question.label}
+                      onChange={(e) => handleEditQuestion(e, question._id)}
+                      style={{
+                        width: "70%",
+                      }}
+                    />
+                  ) : (
+                    <div>{question.label}</div>
+                  )}
+                  {isAuthor && (
+                    <>
+                      {editingQuestionId === question._id ? (
+                        <button
+                          type="button"
+                          className="btn btn-success btn-sm"
+                          onClick={() => saveEditedQuestion(question._id)}
+                        >
+                          Save
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn btn-primary btn-sm"
+                          onClick={() => setEditingQuestionId(question._id)}
+                        >
+                          Edit
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+                {question.type === "text" ||
+                question.type === "textarea" ||
+                question.type === "number" ? (
+                  <div>
+                    <input
+                      type={
+                        question.type === "textarea" ? "text" : question.type
+                      }
+                      className="form-control mt-2"
+                      id={question._id}
+                      value={formData[question._id] || ""}
+                      onChange={(e) => handleAnswerChange(e, question._id)}
+                    />
+                  </div>
+                ) : question.type === "checkbox" ? (
+                  <div className="mt-2">
+                    {question.checkboxList.map((checkbox) => (
+                      <div key={checkbox._id} className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id={checkbox._id}
+                          checked={
+                            Array.isArray(formData[question._id]) &&
+                            formData[question._id].includes(checkbox.value)
+                          }
+                          onChange={(e) =>
+                            handleCheckboxChange(
+                              e,
+                              question._id,
+                              checkbox.value
+                            )
+                          }
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor={checkbox._id}
+                        >
+                          {checkbox.value}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             ))}
             <button type="submit" className="btn btn-primary mt-2 mb-5">
-              {isAuthor ? (
-                <FormattedMessage
-                  id="message.button-edit"
-                  defaultMessage="Edit"
-                />
-              ) : (
-                <FormattedMessage
-                  id="message.button-send"
-                  defaultMessage="Submit"
-                />
-              )}
+              <FormattedMessage
+                id="message.button-send"
+                defaultMessage="Submit"
+              />
             </button>
           </form>
           <CommentCard templateId={id} deleteComment={deleteComment} />

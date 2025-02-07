@@ -7,9 +7,14 @@ export default function ResultByTag() {
   const templates = useResultByTag();
 
   return (
-    <div className="row">
+    <div
+      className="container mt-5"
+      style={{
+        width: "70%",
+      }}
+    >
       <BackButton />
-      {templates ? (
+      {templates && templates.length ? (
         templates.map((template) => (
           <Link
             to={`/templates/${template._id}`}

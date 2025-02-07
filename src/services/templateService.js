@@ -14,27 +14,6 @@ export const fetchTemplate = async (id, token) => {
   return checkResponse(response);
 };
 
-export const editTemplate = async (id, token, formData) => {
-  const response = await fetch(
-    `${process.env.REACT_APP_LINK_TO_BACKEND}/api/templates/${id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        questions: Object.entries(formData).map(([id, label]) => ({
-          id: id,
-          label: label,
-        })),
-      }),
-    }
-  );
-
-  return checkResponse(response);
-};
-
 export const fillTemplate = async (id, token, formData) => {
   const response = await fetch(
     `${process.env.REACT_APP_LINK_TO_BACKEND}/api/form/${id}/forms`,

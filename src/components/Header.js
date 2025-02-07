@@ -1,38 +1,23 @@
-import React, { useContext, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import React from "react";
+import { Link } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import { useLanguageContext } from "../context/LanguageContext";
-import { useIntl } from "react-intl";
+import { Avatar } from "@mui/material";
+import useHeader from "../hooks/useHeader";
 
 export default function Header() {
-  const { user, setUser } = useContext(UserContext);
-  const [query, setQuery] = useState("");
-  const { locale, changeLanguage } = useLanguageContext();
-  const intl = useIntl();
-
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("user");
-    setUser(null);
-    navigate("/");
-  };
-
-  const isAdminPage = () =>
-    location.pathname.startsWith("/user/") && user.role === "admin";
-
-  const querySearch = (e) => {
-    setQuery(e.target.value);
-  };
-
-  const handleResult = (e) => {
-    e.preventDefault();
-    navigate(`/search?query=${query}`);
-    setQuery("");
-  };
+  const {
+    user,
+    query,
+    locale,
+    changeLanguage,
+    intl,
+    handleLogout,
+    isAdminPage,
+    querySearch,
+    handleResult,
+    PersonalPageClick,
+    getInitials,
+  } = useHeader();
 
   return (
     <header>
@@ -70,12 +55,21 @@ export default function Header() {
               value={locale}
               onChange={changeLanguage}
             >
-              <option value="en">English</option>
-              <option value="be">Беларуская</option>
+              <option value="en">Eng</option>
+              <option value="be">Бел</option>
             </select>
             <ul className="navbar-nav ms-auto">
               {user ? (
-                <>
+                <div className="d-flex">
+                  <Avatar
+                    onClick={PersonalPageClick}
+                    className="me-3"
+                    sx={{
+                      backgroundColor: "#198754",
+                    }}
+                  >
+                    {getInitials(user.name)}
+                  </Avatar>
                   {isAdminPage() && (
                     <li className="nav-item">
                       <Link
@@ -100,7 +94,7 @@ export default function Header() {
                       />
                     </button>
                   </li>
-                </>
+                </div>
               ) : (
                 <>
                   <li className="nav-item">

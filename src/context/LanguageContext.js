@@ -24,7 +24,7 @@ export const LanguageProvider = ({ children }) => {
     if (savedLocale) {
       setLocale(savedLocale);
     }
-  });
+  }, []);
 
   return (
     <LanguageContext.Provider value={{ messages, locale, changeLanguage }}>

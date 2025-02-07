@@ -9,7 +9,12 @@ export default function Admin() {
     useAdminActions();
 
   return (
-    <div className="container mt-5">
+    <div
+      className="container mt-5"
+      style={{
+        width: "70%",
+      }}
+    >
       <BackButton />
       <h2>
         <FormattedMessage

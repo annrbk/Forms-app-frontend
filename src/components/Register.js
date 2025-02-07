@@ -15,11 +15,24 @@ export default function Register() {
   } = useRegister();
 
   return (
-    <div className="container mt-5">
+    <div
+      className="container mt-5"
+      style={{
+        width: "70%",
+      }}
+    >
       <h2 className="text-left">
         <FormattedMessage id="message.title" defaultMessage="Sign up" />
       </h2>
-      {message && <div className="alert alert-info">{message}</div>}
+      {message && message.text && (
+        <div
+          className={`alert ${
+            message.isError ? "alert-danger" : "alert-success"
+          }`}
+        >
+          {message.text}
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputName1" className="form-label">
@@ -49,17 +62,12 @@ export default function Register() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <FormattedMessage
-            id="emailHelp"
+            id="message.email-help"
             className="form-text"
             defaultMessage="We will never share your email with anyone else."
-          >
-            We will never share your email with anyone else.
-          </FormattedMessage>
+          ></FormattedMessage>
         </div>
         <div className="mb-3">
-          {/* <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label> */}
           <label htmlFor="exampleInputPassword1" className="form-label">
             <FormattedMessage
               id="message.label-password"
@@ -74,9 +82,7 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        {/* <button type="submit" className="btn btn-primary">
-          Sign up
-        </button> */}
+
         <button type="submit" className="btn btn-primary">
           <FormattedMessage id="message.button-sign" defaultMessage="Sign up" />
         </button>

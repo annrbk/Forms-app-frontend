@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Card from "./Card";
@@ -7,7 +6,6 @@ import useMainActions from "../hooks/useMainActions";
 import { FormattedMessage } from "react-intl";
 
 export default function MainContent() {
-  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const { templates, tags } = useMainActions();
 
@@ -15,14 +13,13 @@ export default function MainContent() {
     navigate(`/templates-tag/${tag._id}`);
   };
 
-  const PersonalPageClick = () => {
-    if (user && user._id) {
-      navigate(`/user/${user._id}`);
-    }
-  };
-
   return (
-    <div className="container my-4">
+    <div
+      className="container my-4"
+      style={{
+        width: "70%",
+      }}
+    >
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="text-left">
           <FormattedMessage
@@ -30,18 +27,6 @@ export default function MainContent() {
             defaultMessage="Latest Templates"
           />
         </h1>
-        {user && (
-          <button
-            type="button"
-            className="btn btn-outline-primary"
-            onClick={PersonalPageClick}
-          >
-            <FormattedMessage
-              id="message.button-personal"
-              defaultMessage="Personal page"
-            />
-          </button>
-        )}
       </div>
       <div className="row">
         {templates.map((template) => (

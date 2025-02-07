@@ -16,10 +16,19 @@ export default function CreateTemplate() {
     template,
     setTemplate,
     setTags,
+    addCheckbox,
+    checkboxChange,
+    deleteQuestion,
+    questionError,
   } = useCreateTemplateActions();
 
   return (
-    <div className="container mt-5">
+    <div
+      className="container mt-5"
+      style={{
+        width: "70%",
+      }}
+    >
       <BackButton />
       <NewTemplateDetails
         message={message}
@@ -31,8 +40,12 @@ export default function CreateTemplate() {
         questionList={questionList}
         changeQuestion={changeQuestion}
         addQuestion={addQuestion}
+        addCheckbox={addCheckbox}
+        checkboxChange={checkboxChange}
+        deleteQuestion={deleteQuestion}
+        questionError={questionError}
       />
-      <div>
+      <div style={{ width: "70%" }}>
         <h3 className="mt-3">
           <FormattedMessage id="message.title-tags" defaultMessage="Add tags" />
         </h3>

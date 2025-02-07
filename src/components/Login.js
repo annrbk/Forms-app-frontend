@@ -7,7 +7,12 @@ export default function Login() {
     useLogin();
 
   return (
-    <div className="container mt-5">
+    <div
+      className="container mt-5"
+      style={{
+        width: "70%",
+      }}
+    >
       <h2 className="text-left">
         <FormattedMessage id="message.title-login" defaultMessage="Login" />
       </h2>

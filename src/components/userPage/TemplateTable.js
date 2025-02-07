@@ -41,6 +41,12 @@ export default function TemplateTable({
                 className={
                   sortConfig?.key === "title" ? sortConfig.direction : undefined
                 }
+                style={{
+                  border: "none",
+                  borderRadius: "0.3rem",
+                  backgroundColor: "#0d6efd",
+                  color: "#fff",
+                }}
               >
                 <FormattedMessage
                   id="message.button-sort"
@@ -66,16 +72,6 @@ export default function TemplateTable({
                       <FormattedMessage
                         id="message.button-look"
                         defaultMessage="Look"
-                      />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-outline-primary me-2"
-                      onClick={() => navigate(`/template/${template._id}`)}
-                    >
-                      <FormattedMessage
-                        id="message.button-edit"
-                        defaultMessage="Edit"
                       />
                     </button>
                     <button

@@ -16,10 +16,12 @@ export default function NewTemplateDetails({
           defaultMessage="Create a New Template"
         />
       </h2>
-      {message && <div className="alert alert-info"> {message}</div>}
-      <form onSubmit={handleSubmit}>
+      {message && <div className="alert alert-info">{message}</div>}
+      <form onSubmit={handleSubmit} style={{ width: "70%" }}>
         <div className="mb-3">
-          <label className="form-label">Title</label>
+          <label className="form-label">
+            <FormattedMessage id="message.label-title" defaultMessage="Title" />
+          </label>
           <input
             type="text"
             className="form-control"
@@ -31,7 +33,12 @@ export default function NewTemplateDetails({
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Description</label>
+          <label className="form-label">
+            <FormattedMessage
+              id="message.label-desc"
+              defaultMessage="Description"
+            />
+          </label>
           <textarea
             className="form-control"
             rows="3"

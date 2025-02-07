@@ -19,7 +19,12 @@ export default function UserPage() {
   } = useSortTemplateData(templates);
 
   return (
-    <div className="container mt-5">
+    <div
+      className="container mt-5"
+      style={{
+        width: "70%",
+      }}
+    >
       <BackButton />
       {user ? (
         <>

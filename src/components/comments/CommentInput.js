@@ -24,7 +24,11 @@ export default function CommentInput({ templateId }) {
 
   return (
     <div>
-      <form id="commentForm" onSubmit={handleSendComment}>
+      <form
+        id="commentForm"
+        style={{ width: "70%" }}
+        onSubmit={handleSendComment}
+      >
         <div className="mb-3">
           <textarea
             className="form-control"

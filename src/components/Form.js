@@ -29,7 +29,16 @@ export default function FormPage() {
           <h2>{form.templateId.title}</h2>
           <form>
             {form.answers.map((answer) => (
-              <div className="mb-3" key={answer._id}>
+              <div
+                className="mb-3 p-3"
+                key={answer._id}
+                style={{
+                  width: "70%",
+                  border: "1px solid #f0ebeb",
+                  borderRadius: "0.5rem",
+                  position: "relative",
+                }}
+              >
                 <label htmlFor={answer._id} className="form-label">
                   {answer.questionId.label}
                 </label>

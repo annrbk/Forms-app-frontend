@@ -25,7 +25,7 @@ export default function CommentCard({ templateId, deleteComment }) {
       </h4>
       <CommentInput templateId={templateId} />
       {comments && comments.length > 0 ? (
-        <div className="comments-list mb-3 mt-3">
+        <div className="comments-list mb-3 mt-3" style={{ width: "70%" }}>
           {comments.slice(0, visibleComments).map((comment) => (
             <div className="card mb-3" key={comment._id}>
               <div className="card-body">

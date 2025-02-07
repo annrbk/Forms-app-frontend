@@ -6,7 +6,7 @@ const useRegister = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({ text: "", isError: false });
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,13 +21,13 @@ const useRegister = () => {
     try {
       await registerUser(userData);
 
-      setMessage("Registration successful!");
+      setMessage({ text: "Registration successful!", isError: false });
       setName("");
       setEmail("");
       setPassword("");
       navigate("/login");
     } catch (error) {
-      setMessage("Registration failed");
+      setMessage({ text: "Registration failed!", isError: true });
       console.error(error);
     }
   };
